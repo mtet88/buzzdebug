@@ -1,0 +1,21 @@
+name: Sync from Buzz
+
+on:
+  workflow_dispatch:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository Buzz
+      uses: actions/checkout@v2
+
+    - name: Fetch and Merge Changes from Buzz
+      run: |
+        git remote add buzz https://github.com/mtet88/buzz.git
+        git fetch buzz main:main
+        git merge FETCH_HEAD
+        git push origin main
